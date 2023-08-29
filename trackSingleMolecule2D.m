@@ -7,6 +7,7 @@ clear
 pixels_per_micron = 1/5.3; % scalebar
 micron_search_radius = 100; % threshold of identifying the same molecule
 pixel_search_radius = micron_search_radius * pixels_per_micron;
+FrameRate= 1/0.05; % 1/second
 
 %% Import SML data
 [file, path] = uigetfile('C:\Users\sc201\Desktop\Fourier Shell Correlation\FourierShellCorrelation_SMLM\*.csv','Select localization csv file:','MultiSelect','off');
@@ -65,4 +66,4 @@ end
 %% Output
 min_track_length=10; % threshold of trajectory length
 plotTrajectory(tracks,lastlabel,min_track_length);
-plotVelocity(tracks,lastlabel,min_track_length);
+plotVelocity(tracks,lastlabel,min_track_length,FrameRate);

@@ -1,4 +1,4 @@
-function plotVelocity(tracks,lastlabel,min_track_length)
+function plotVelocity(tracks,lastlabel,min_track_length,FrameRate)
     for i=1:lastlabel
         colors=prism(lastlabel);
 
