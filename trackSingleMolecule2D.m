@@ -65,5 +65,5 @@ end
 
 %% Output
 min_track_length=10; % threshold of trajectory length
-plotTrajectory(tracks,lastlabel,min_track_length);
-plotVelocity(tracks,lastlabel,min_track_length,FrameRate);
+figure;plotTrajectory(tracks,lastlabel,min_track_length);
+% plotVelocity(tracks,lastlabel,min_track_length,FrameRate);

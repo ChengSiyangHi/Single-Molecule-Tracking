@@ -5,7 +5,7 @@ clear
 
 %% Parameters
 pixels_per_micron = 1/5.3;
-micron_search_radius = 200; % threshold of identifying the same molecule
+micron_search_radius = 100; % threshold of identifying the same molecule
 pixel_search_radius = micron_search_radius * pixels_per_micron;
 FrameRate= 1/0.05; % 1/second
 
@@ -60,6 +60,6 @@ for i = 1:lastlabel % reassemble beadlabel into a structured array 'tracks' cont
 end
 
 %% Output
-min_track_length=10; % threshold of trajectory length
-plotTrajectory(tracks,lastlabel,min_track_length);
-plotVelocity(tracks,lastlabel,min_track_length,FrameRate);
+min_track_length=50; % threshold of trajectory length
+figure;plotTrajectory(tracks,lastlabel,min_track_length);
+% plotVelocity(tracks,lastlabel,min_track_length,FrameRate);
