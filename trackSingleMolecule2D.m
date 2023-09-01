@@ -64,6 +64,11 @@ for i = 1:lastlabel % reassemble beadlabel into a structured array 'tracks' cont
 end
 
 %% Output
+% Histogram of trajectory length
+trajLength=plotTrajLength(tracks,lastlabel);
+h = histogram(trajLength, 'Normalization', 'pdf');% Normoalized histogram
+
+
 min_track_length=10; % threshold of trajectory length
 figure;plotTrajectory(tracks,lastlabel,min_track_length);
 % plotVelocity(tracks,lastlabel,min_track_length,FrameRate);
