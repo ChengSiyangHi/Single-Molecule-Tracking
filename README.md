@@ -18,4 +18,4 @@ plotTrajectory.m
 calcTrackjLength.m : calculate the distribution of the length of each trajectory. (pdf)\
 calcVelocity.m : calculate velocity (v-t) and averaged velocity of each trajectory.\
 calcMSD.m : calculate mean-standard deviation of each trajectory.
-
+![Screenshot 2023-09-05 180600](https://github.com/ChengSiyangHi/SingleMoleculeTracking/assets/143525650/18608661-ba78-419a-89ef-9d18b82c1d0e)
