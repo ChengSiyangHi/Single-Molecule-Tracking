@@ -7,7 +7,7 @@ clear
 pixels_per_micron = 1/5.3; % scalebar
 micron_search_radius = 100; % threshold of identifying the same molecule
 pixel_search_radius = micron_search_radius * pixels_per_micron;
-FrameRate= 1/0.05; % 1/second
+FrameRate= 1/0.05; % 1/second = N frames per second
 
 %% Import SML data
 [file, path] = uigetfile('C:\Users\sc201\Desktop\Fourier Shell Correlation\FourierShellCorrelation_SMLM\*.csv','Select localization csv file:','MultiSelect','off');
@@ -63,46 +63,33 @@ for i = 1:lastlabel % reassemble beadlabel into a structured array 'tracks' cont
     tracks(i).frame = frame(moli);
 end
 
-%% Link trajectories between blank frames (Optional section)
-% frame_blank = 5; % threshold of blank frames
-% blank_radius = micron_search_radius*frame_blank; % threshold of identifying the same molecule after blank frames
-% 
-% trackslinked=tracks;
-% 
-% % Might connect more than 2 trajectories
-% for i=1:lastlabel-1
-%     for j=i+1:lastlabel
-%         if (trackslinked(j).frame(1)-trackslinked(i).frame(length(tracks(i).frame)))>0 && (trackslinked(j).frame(1)-trackslinked(i).frame(length(tracks(i).frame)))<blank_radius
-%             dx=trackslinked(i).x(length(tracks(i).x))-trackslinked(j).x(1);
-%             dy=trackslinked(i).y(length(tracks(i).y))-trackslinked(j).y(1);
-%             dr2=dx^2+dy^2;
-%             if dr2<blank_radius^2
-%                 trackslinked(i).x=[trackslinked(i).x trackslinked(j).x];
-%                 trackslinked(i).y=[trackslinked(i).y trackslinked(j).y];
-%                 trackslinked(i).frame=[trackslinked(i).frame trackslinked(j).frame];
-%                 trackslinked(j).x=0;trackslinked(j).y=0;trackslinked(j).frame=0;
-%                 % trackslinked(j)=[];
-%             end
-%         end
-% 
-%     end
-% 
-% end
-% 
-% count=0;
-% for i=1:lastlabel
-%     if trackslinked(i).x(1)==0
-%         count=count+1;
-%     end
-% end
-% 
-% disp([num2str(count),' trajectories combined.');
 %% Output
 % Histogram of trajectory length
-trajLength=plotTrajLength(tracks,lastlabel);
+trajLength=calcTrajLength(tracks,lastlabel);
 figure;h=histogram(trajLength, 'Normalization', 'pdf');% Normoalized histogram
 
-
-min_track_length=10; % threshold of trajectory length
+% Plot trajectory and velocity
+min_track_length=50; % threshold of trajectory length
 figure;plotTrajectory(tracks,lastlabel,min_track_length);
-% plotVelocity(tracks,lastlabel,min_track_length,FrameRate);
+
+velocity=[];velocity.v=[];velocity.mean=[];velocity.msd=[];
+velocity=calcVelocity(tracks,velocity,lastlabel,min_track_length,FrameRate); % um/s
+
+min_velocity=1;
+max_velocity=100;
+% for i=1:201 % size(velocity,2)
+%     if velocity(i).mean>min_velocity
+%         figure;plot(tracks(i).x, tracks(i).y, 'Color', colors(i, 1:3));
+%         figure;plot(velocity(i).v);ylabel('um/s');xlabel('frame');
+%     end
+% end
+
+% Calculate MSD for each trajectory
+velocity=calcMSD(tracks,velocity,lastlabel,min_track_length,FrameRate); % um^2
+figure;
+for i=1:size(velocity,2)
+    if (velocity(i).mean>min_velocity)
+        plot(velocity(i).msd);hold on
+    end
+end
+xlabel('Time (second)');ylabel('MSD (um^2)');
