@@ -11,8 +11,8 @@ Import data should be any csv file that contains localizations in x,y and frame 
 Trajectories are connected according how fast the molecule could travel. (Threshold: micron_search_radius)\
 Trajectories are also filtered afterwards according to their length. (Threshold: min_track_length)
 
-trackSingleMolecule2D.m\
-plotTrajectory.m
+trackSingleMolecule2D.m : for super-localized (e.g. ThunderSTORM) tracking.\
+plotTrajectory.m : plot all trajectories in one figure.
 
 ### Analyze trajectory
 calcTrackjLength.m : calculate the distribution of the length of each trajectory. (pdf)\
