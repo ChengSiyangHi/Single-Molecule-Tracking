@@ -7,7 +7,7 @@ function velocity = calcVelocity(tracks,velocity,lastlabel,min_track_length,Fram
             dx = X(2:end) - X(1:end - 1);
             dy = Y(2:end) - Y(1:end - 1);
             dr = sqrt(dx.^2 + dy.^2);
-            velocity(i).v = dr * FrameRate; % um/s
+            velocity(i).v = dr * FrameRate; % um/frame -> um/s
             velocity(i).mean = mean(velocity(i).v); 
            
         end

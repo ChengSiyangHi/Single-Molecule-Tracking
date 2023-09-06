@@ -6,8 +6,8 @@ function velocity = calcMSD(tracks,velocity,lastlabel,min_track_length,FrameRate
             [Y, ~] = a_trous_dwt1D(tracks(i).y, 1);
             dx = X(2:end) - X(1);
             dy = Y(2:end) - Y(1);
-            velocity(i).msd = ((dx.^2 + dy.^2)) * FrameRate; % um^2 - second
-
+            velocity(i).msd = ((dx.^2 + dy.^2)); % * FrameRate; % um^2 
+            velocity(i).msdmax = ((dx(size(dx,2),1).^2 + dy(size(dy,1)).^2)); % * FrameRate; 
         end
     end
 end

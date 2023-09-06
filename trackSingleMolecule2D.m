@@ -7,7 +7,7 @@ clear
 pixels_per_micron = 1/5.3; % scalebar
 micron_search_radius = 100; % threshold of identifying the same molecule
 pixel_search_radius = micron_search_radius * pixels_per_micron;
-FrameRate= 1/0.05; % 1/second = N frames per second
+FrameRate= 60; % 1/second = N frames per second
 
 %% Import SML data
 [file, path] = uigetfile('C:\Users\sc201\Desktop\Fourier Shell Correlation\FourierShellCorrelation_SMLM\*.csv','Select localization csv file:','MultiSelect','off');
@@ -70,9 +70,9 @@ figure;h=histogram(trajLength, 'Normalization', 'pdf');% Normoalized histogram
 
 % Plot trajectory and velocity
 min_track_length=50; % threshold of trajectory length
-figure;plotTrajectory(tracks,lastlabel,min_track_length);
+% figure;plotTrajectory(tracks,lastlabel,min_track_length);
 
-velocity=[];velocity.v=[];velocity.mean=[];velocity.msd=[];
+velocity=[];velocity.v=[];velocity.mean=[];velocity.msd=[];velocity.msdmax=[];
 velocity=calcVelocity(tracks,velocity,lastlabel,min_track_length,FrameRate); % um/s
 
 min_velocity=1;
@@ -86,10 +86,11 @@ max_velocity=100;
 
 % Calculate MSD for each trajectory
 velocity=calcMSD(tracks,velocity,lastlabel,min_track_length,FrameRate); % um^2
+min_msd=112111;
 figure;
 for i=1:size(velocity,2)
-    if (velocity(i).mean>min_velocity)
+    if ((velocity(i).msdmax)>min_msd) % (velocity(i).mean>min_velocity)
         plot(velocity(i).msd);hold on
     end
 end
-xlabel('Time (second)');ylabel('MSD (um^2)');
+xlabel('Time (frame)');ylabel('MSD (um^2)');
