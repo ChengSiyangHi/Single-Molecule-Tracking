@@ -17,4 +17,3 @@ plotTrajectory.m : plot all trajectories in one figure.
 ### Analyze trajectory
 calcTrackjLength.m : calculate the distribution of the length of each trajectory. (pdf)\
 calcVelocity.m : calculate velocity (v-t) and averaged velocity of each trajectory.\
-calcMSD.m : calculate mean-standard deviation of each trajectory.
