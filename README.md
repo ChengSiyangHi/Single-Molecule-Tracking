@@ -1,6 +1,6 @@
 # SingleMoleculeTracking
 ### Calculate trajectory
-This code is used for calculating 2D trajectories of (super) localized single molecules (bacteria).
+This code is a tool for calculating 2D trajectories of (super) localized single molecules (bacteria).
 
 1. Diffraction limited tracking\
 Import data can be raw videos taken by scientific camera.
